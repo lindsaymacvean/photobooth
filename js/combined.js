@@ -58,18 +58,12 @@
 	
     
     //User JQuery's $.ajax or $.post
-	function sendToServer(params){	
-		var ajax;
-		ajax = new XMLHttpRequest();
-		ajax.onreadystatechange = function() {
-			if(ajax.readyState == 4 && ajax.status == 200) {
-				receivedImage = ajax.responseText;
-			}
-			
-		}
-		ajax.open("POST", "save.php", true);
-		ajax.setRequestHeader('Content-type','application/x-www-form-urlencoded');
-		ajax.send('save='.params);
+    
+	function sendToServer(img_base64){	
+		$.post("save.php", { save: img_base64},
+		function(data) {
+		  alert("Data Loaded: " + data);
+		});	
 	}
     
     
