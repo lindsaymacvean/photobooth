@@ -1,5 +1,5 @@
 	
-	navigator.webkitGetUserMedia({video:true}, gotStream,noStream);
+	navigator.webkitGetUserMedia({video:true}, gotStream, noStream);
 	
 	var video = document.getElementById('video');
 	var canvas = document.getElementById('photo');
@@ -12,18 +12,26 @@
 		video.onerror = function(){
 			stream.stop();
 			noStream();
-		};
+		} 
+        $("#errorMessage").hide();
+        
 	}
 	
 	// for when the stream fails
 	function noStream(){
 		document.getElementById('errorMessage').textContent="No Camera Available.";
 	}
-	
-	//add click listener
-	video.addEventListener('click', snapshot(), false );
-	canvas.addEventListener('click', function(){$('#videoDiv').toggle(); $('#app').toggle();}, false);
-	
+
+    //add click listeners
+    $("#video").click(function(){
+        snapshot();
+    });
+    
+    $("#photo").click(function(){
+        $('#videoDiv').toggle(); 
+        $('#app').toggle();
+    });
+    
 	//for when the snapshot is taken
 	function snapshot() {
 		var c = canvas.getContext('2d');
@@ -48,6 +56,8 @@
 		filmroll.appendChild(img);
 		}
 	
+    
+    //User JQuery's $.ajax or $.post
 	function sendToServer(params){	
 		var ajax;
 		ajax = new XMLHttpRequest();
@@ -61,5 +71,6 @@
 		ajax.setRequestHeader('Content-type','application/x-www-form-urlencoded');
 		ajax.send('save='.params);
 	}
-	
-	
+    
+    
+  
